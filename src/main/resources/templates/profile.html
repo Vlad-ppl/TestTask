@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .profile-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-item {
+            margin-bottom: 1rem;
+        }
+
+        .profile-item strong {
+            display: inline-block;
+            width: 100px;
+        }
+
+        .edit-button,
+        .admin-button,
+        .logout-button {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+
+        .edit-button {
+            background: #007BFF;
+            color: white;
+        }
+
+        .edit-button:hover {
+            background: #0056b3;
+        }
+
+        .admin-button {
+            background: #28a745;
+            color: white;
+        }
+
+        .admin-button:hover {
+            background: #218838;
+        }
+
+        .logout-button {
+            background: #dc3545;
+            color: white;
+        }
+
+        .logout-button:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <h2>Your Profile</h2>
+
+    <div class="profile-item">
+        <strong>Name:</strong> <span th:text="${user.name}"></span>
+    </div>
+    <div class="profile-item">
+        <strong>Email:</strong> <span th:text="${user.email}"></span>
+    </div>
+    <div class="profile-item">
+        <strong>Role:</strong> <span th:text="${user.userRole}"></span>
+    </div>
+    <div class="profile-item">
+        <strong>Password:</strong> <span th:text="${user.password}"></span>
+    </div>
+
+    <a href="/profile/edit" class="edit-button">Edit Profile</a>
+
+    <!-- 👇 Показывать только если роль ADMIN -->
+    <a href="/admin/users" class="admin-button" th:if="${user.userRole.name() == 'ADMIN'}">Show All Users</a>
+
+    <a href="/logout" class="logout-button">Logout</a>
+</div>
+
+</body>
+</html>
