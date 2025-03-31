@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.testtask.dto.User;
 import org.example.testtask.service.ProfileService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/edit")
-    public String editProfile(@AuthenticationPrincipal org.example.testtask.security.CustomUserDetails userDetails,
+    public String editProfile(@AuthenticationPrincipal UserDetails userDetails,
                               Model model) {
         User user = profileService.getUserByEmail(userDetails.getUsername());
         model.addAttribute("user", user);
@@ -39,7 +40,7 @@ public class ProfileController {
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("user") User updatedUser,
-                                @AuthenticationPrincipal org.example.testtask.security.CustomUserDetails userDetails) {
+                                @AuthenticationPrincipal UserDetails userDetails) {
         profileService.updateUserProfile(userDetails.getUsername(), updatedUser);
         return "redirect:/";
     }
