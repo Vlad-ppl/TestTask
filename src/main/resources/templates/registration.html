@@ -93,7 +93,7 @@
     </div>
 
     <!-- Форма регистрации -->
-    <form th:action="@{/registration}" method="post" th:object="${userEntity}">
+    <form th:action="@{/registration}" method="post" th:object="${user}">
         <input type="text" th:field="*{name}" placeholder="Your Name" required />
         <input type="email" th:field="*{email}" placeholder="Your Email" required />
         <input type="password" th:field="*{password}" placeholder="Create Password" required />
