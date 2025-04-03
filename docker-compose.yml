@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: testtask-postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: testTask
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - testtask-net
+
+  app:
+    build: .
+    container_name: testtask-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/testTask
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - testtask-net
+
+volumes:
+  postgres-data:
+
+networks:
+  testtask-net:
+    driver: bridge
