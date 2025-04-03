@@ -14,7 +14,7 @@ import org.example.testtask.entity.role.UserRole;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Лучше для PostgreSQL
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;

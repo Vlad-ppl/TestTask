@@ -37,7 +37,9 @@
 
         .edit-button,
         .admin-button,
-        .logout-button {
+        .logout-button,
+        .items-button,
+        .orders-button {
             display: block;
             width: 100%;
             padding: 0.5rem;
@@ -65,6 +67,24 @@
 
         .admin-button:hover {
             background: #218838;
+        }
+
+        .items-button {
+            background: #ffc107;
+            color: black;
+        }
+
+        .items-button:hover {
+            background: #e0a800;
+        }
+
+        .orders-button {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .orders-button:hover {
+            background: #138496;
         }
 
         .logout-button {
@@ -99,6 +119,11 @@
 
     <!-- 👇 Показывать только если роль ADMIN -->
     <a href="/admin/users" class="admin-button" th:if="${user.userRole.name() == 'ADMIN'}">Show All Users</a>
+
+    <a href="/items" class="items-button">Show Available Items</a>
+
+    <!-- ✅ Исправленная ссылка -->
+    <a href="/orders/my" class="orders-button">My Orders</a>
 
     <a href="/logout" class="logout-button">Logout</a>
 </div>

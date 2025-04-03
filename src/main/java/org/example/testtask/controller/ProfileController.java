@@ -44,4 +44,9 @@ public class ProfileController {
         profileService.updateUserProfile(userDetails.getUsername(), updatedUser);
         return "redirect:/";
     }
+    @GetMapping("/profile")
+    public String redirectToRoot() {
+        return "redirect:/";
+    }
+
 }

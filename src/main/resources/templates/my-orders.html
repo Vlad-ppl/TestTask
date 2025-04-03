@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>My Orders</h2>
+
+    <div th:if="${orders.size()} == 0">
+        <p>No orders found.</p>
+    </div>
+
+    <div th:each="order : ${orders}">
+        <div class="order-header">
+            <h3 th:text="'Order #' + ${order.id}"></h3>
+            <form method="post" th:action="@{/orders/delete}" style="margin: 0">
+                <input type="hidden" name="orderId" th:value="${order.id}" />
+                <button type="submit" class="delete-button">Delete Order</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${order.items}">
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.price} + ' ₴'"></td>
+                <td>
+                    <form method="post" th:action="@{/orders/remove-item}">
+                        <input type="hidden" name="itemId" th:value="${item.id}" />
+                        <input type="hidden" name="orderId" th:value="${order.id}" />
+                        <button type="submit" class="delete-button">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="total">
+        Total: <span th:text="${total}"></span> ₴
+    </div>
+
+    <a href="/items" class="back-link">&larr; Back to items</a>
+</div>
+</body>
+</html>

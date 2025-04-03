@@ -16,13 +16,6 @@ public class AdminController {
 
     private final AdminService adminService;
 
-//    @GetMapping("/admin/users")
-//    public String allUsers(Model model) {
-//        List<User> users = adminService.getAllUsers();
-//        model.addAttribute("users", users);
-//        return "users"; // thymeleaf-шаблон users.html
-//    }
-
     @GetMapping("/admin/users/filter")
     public String filterByRole(@RequestParam("role") String role, Model model) {
         List<User> users = adminService.getUsersByRole(UserRole.valueOf(role));

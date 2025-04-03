@@ -22,7 +22,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/registration", "/css/**").permitAll()
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN") // 🔒 Только для админа
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login") // ✅ Перенаправление на /login без параметра
+                        .logoutSuccessUrl("/login")
                         .permitAll()
                 )
                 .authenticationProvider(authenticationProvider());
